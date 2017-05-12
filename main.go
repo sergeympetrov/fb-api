@@ -1,8 +1,9 @@
 package main
 
 import (
-	"net/http"
 	"fmt"
+	"time"
+	"net/http"
 	"html/template"
 )
 
@@ -16,10 +17,13 @@ func testPage(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-type", "text/html")
 
 	titleR := r.URL.Path[len("/"):]
-	fmt.Println(titleR)
+	fmt.Println(titleR, time.Now())
+
+	var Message string = "Hello World, time"+"sdf"
+
 
 	t, _ := template.ParseFiles("index.html")
-	t.Execute(w, &page{Title: "Just page", Msg: "Hello World", Path: titleR })
+	t.Execute(w, &page{Title: "Just page", Msg: Message, Path: titleR })
 }
 
 func index(w http.ResponseWriter, r *http.Request) {
